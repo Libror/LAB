@@ -12,6 +12,9 @@ client = commands.Bot(command_prefix = '!!') #Set prefix
 @client.event
 async def on_ready():
     print("Bot is initalized. Version 0.0.1 lock and loaded.")
+    servers = len(client.guilds)
+    print("Active on " + str(servers) + " server")
+    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=str(servers) + " server"))
 
 
 def __init__(self, *args, **kwargs):
