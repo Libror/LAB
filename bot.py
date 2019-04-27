@@ -5,9 +5,11 @@ from discord import Game
 import asyncio
 from itertools import cycle
 
+
 TOKEN = "NTcwOTg0NjE0MDY4NDg2MTc2.XMOD1g.mTRxGYkrdPvUz2sQvm1GFXJXXoU" #Gets Bot Token
 
-client = commands.Bot(command_prefix = '!!') #Set prefix
+client = commands.Bot(command_prefix = "!!") #Set prefix
+client.remove_command("help")
 
 @client.event
 async def on_ready():
@@ -40,6 +42,21 @@ async def spaceforme(ctx, *, args): # * means multiple words given
         output += word
         output += ' '
     await ctx.send(output)
+
+@client.command()
+async def help(ctx):
+    author = ctx.message.author
+
+    embed = discord.Embed()
+
+    embed.set_author(name="**Help Information**")
+    embed.add_field(name="help", value="Shows this info", inline=False)
+    embed.add_field(name="ping", value="Returns Pong!", inline=False)
+    embed.add_field(name="spaceforme", value="Spaces out words for you", inline=False)
+
+    await ctx.send(author, embed=embed)
+
+
 
 @client.event
 async def on_message_delete(message):
