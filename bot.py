@@ -4,16 +4,18 @@ from discord.ext.commands import Bot
 from discord import Game
 import asyncio
 from itertools import cycle
+import json
 
+import os
 
-TOKEN = "NTcwOTg0NjE0MDY4NDg2MTc2.XMOD1g.mTRxGYkrdPvUz2sQvm1GFXJXXoU" #Gets Bot Token
+TOKEN = open("TOKEN.txt", "r").read() #Gets Bot Token
 
 client = commands.Bot(command_prefix = "!!") #Set prefix
 client.remove_command("help")
 
 @client.event
 async def on_ready():
-    print("Bot is initalized. Version 0.0.1 lock and loaded.")
+    print("Bot is initalized. Version 0.0.2 lock and loaded.")
     servers = len(client.guilds)
     print("Active on " + str(servers) + " server")
     await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=str(servers) + " server"))
@@ -64,5 +66,15 @@ async def on_message_delete(message):
     content = message.content
     print("{}: {}".format(author, content) + " got deleted") #Send a message to the server defined in variable
     await client.process_commands(message)
+
+
+for cog in os.listdir(".\\cogs"):
+    if cog.endswith(".py"):
+        try:
+            cog = f"cogs.{cog.replace('.py', '')}"
+            client.load_extension(cog)
+        except Exception as e:
+            print(f"{cog} can not be loaded:")
+            raise e
 
 client.run(TOKEN)
