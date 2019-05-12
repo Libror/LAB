@@ -15,5 +15,7 @@ What you can do right now:
 !!ban <member> <reason/"You were banned for no given reason">
   
 !!clear <amount> -- clears chat by given amout (incluse command message)
+  
+And much more! There also will be more coming!
 
 As you can see there is not much to do right now and I'm trying to fix everything to setup the rich presence. If you invited him to your server, I hope that you have much fun with it :).
